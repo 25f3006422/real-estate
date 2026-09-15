@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, ChevronDown, Trophy, TrendingUp, Building2 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 
 const locations = [
   { time: "05", label: "Hospital", sub: "Nearest Care" },
@@ -37,17 +37,27 @@ export default function FinalInfoSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="location" className="bg-black py-8 px-4 font-primary">
+    <section id="location" aria-labelledby="location-heading" className="bg-black py-8 px-4 font-primary">
       <div className="max-w-[1100px] mx-auto">
         
         {/* 1. LOCATION GRID */}
         <div className="mb-32">
           <div className="text-center mb-16">
-            <h3 className="text-yellow-500 text-[10px] tracking-[0.3em] uppercase font-bold mb-4">Strategic Proximity</h3>
-            <h4 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter">Zero <span className="text-gray-600 font-extralight italic">Distractions</span></h4>
+            <p className="text-yellow-500 text-[10px] tracking-[0.3em] uppercase font-bold mb-4">Strategic Proximity</p>
+            {/* AI SEO FIX: Proper h2 semantic hierarchy */}
+            <h2 id="location-heading" className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter">
+              Zero <span className="text-gray-600 font-extralight italic">Distractions</span>
+            </h2>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* AI SEO FIX: The "Ghost" Sentence for AI Engines. 
+              This turns your grid of numbers into a factual paragraph for ChatGPT/Google AI. */}
+          <p className="sr-only">
+            Irish Platinum in Sector 10, Greater Noida West offers unmatched connectivity: 5 minutes to the nearest hospital, Metro/Rapid Rail, and daily shopping malls; 10 minutes to the FNG Expressway; 30 minutes to DLF Malls, the proposed Film City, and the upcoming Jewar International Airport; and 45 minutes to the central Railway Station.
+          </p>
+
+          {/* Added aria-hidden so bots don't read the disconnected grid text */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4" aria-hidden="true">
             {locations.map((loc, i) => (
               <div key={i} className="p-6 bg-neutral-900/20 border border-white/5 rounded-3xl group hover:border-yellow-500/20 transition-all text-center">
                 <span className="block text-3xl font-black text-white tracking-tighter mb-1 group-hover:text-yellow-500 transition-colors">
@@ -60,40 +70,62 @@ export default function FinalInfoSection() {
           </div>
         </div>
 
-        {/* 2. FAQ ACCORDION */}
+        {/* 2. FAQ ACCORDION (With Schema.org Microdata) */}
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center gap-4 mb-12 justify-center">
             <div className="h-[1px] w-12 bg-yellow-500/30" />
-            <h5 className="text-[10px] tracking-[0.5em] uppercase text-white font-bold whitespace-nowrap">Investment Intelligence</h5>
+            {/* AI SEO FIX: Semantic h2 for the FAQ section */}
+            <h2 className="text-[10px] tracking-[0.5em] uppercase text-white font-bold whitespace-nowrap">
+              Investment Intelligence FAQ
+            </h2>
             <div className="h-[1px] w-12 bg-yellow-500/30" />
           </div>
 
-          <div className="space-y-4">
+          {/* AI SEO FIX: Added itemScope and itemType for FAQPage Schema directly into HTML */}
+          <div className="space-y-4" itemScope itemType="https://schema.org/FAQPage">
             {faqs.map((faq, i) => (
-              <div key={i} className="border-b border-white/5">
-                <button 
-                  onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                  className="w-full py-6 flex items-center justify-between text-left group"
+              <div 
+                key={i} 
+                className="border-b border-white/5" 
+                itemScope 
+                itemProp="mainEntity" 
+                itemType="https://schema.org/Question"
+              >
+                {/* AI SEO FIX: Wrapped button in an h3 for document outline */}
+                <h3 className="w-full m-0 p-0">
+                  <button 
+                    onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                    aria-expanded={openIndex === i}
+                    aria-controls={`faq-answer-${i}`}
+                    className="w-full py-6 flex items-center justify-between text-left group"
+                  >
+                    {/* itemProp="name" flags this as the question */}
+                    <span itemProp="name" className={`text-xs md:text-sm uppercase tracking-widest font-bold transition-colors ${openIndex === i ? 'text-yellow-500' : 'text-gray-400 group-hover:text-white'}`}>
+                      {faq.q}
+                    </span>
+                    <ChevronDown className={`w-4 h-4 shrink-0 transition-transform duration-500 ${openIndex === i ? 'rotate-180 text-yellow-500' : 'text-gray-600'}`} />
+                  </button>
+                </h3>
+                
+                {/* AI SEO FIX: Removed AnimatePresence. The DOM node now stays alive permanently. 
+                    Height drops to 0 when closed, but the HTML remains intact for crawlers. */}
+                <motion.div 
+                  id={`faq-answer-${i}`}
+                  initial={false}
+                  animate={{ 
+                    height: openIndex === i ? 'auto' : 0, 
+                    opacity: openIndex === i ? 1 : 0 
+                  }}
+                  className="overflow-hidden"
+                  itemScope 
+                  itemProp="acceptedAnswer" 
+                  itemType="https://schema.org/Answer"
                 >
-                  <span className={`text-xs md:text-sm uppercase tracking-widest font-bold transition-colors ${openIndex === i ? 'text-yellow-500' : 'text-gray-400 group-hover:text-white'}`}>
-                    {faq.q}
-                  </span>
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-500 ${openIndex === i ? 'rotate-180 text-yellow-500' : 'text-gray-600'}`} />
-                </button>
-                <AnimatePresence>
-                  {openIndex === i && (
-                    <motion.div 
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      className="overflow-hidden"
-                    >
-                      <p className="pb-8 text-[10px] md:text-xs text-gray-500 leading-relaxed uppercase tracking-wide">
-                        {faq.a}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                  {/* itemProp="text" flags this as the answer */}
+                  <div itemProp="text" className="pb-8 text-[10px] md:text-xs text-gray-500 leading-relaxed uppercase tracking-wide">
+                    {faq.a}
+                  </div>
+                </motion.div>
               </div>
             ))}
           </div>

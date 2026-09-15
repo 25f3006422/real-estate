@@ -3,123 +3,59 @@ import localFont from 'next/font/local';
 import "./globals.css";
 import PromoBar from "../components/promobar";
 
-// Configure all weights under a single font family
 const zalandoSans = localFont({
   src: [
-    {
-      path: './fonts/ZalandoSansSemiExpanded-ExtraLight.ttf',
-      // weight: '200',
-      style: 'normal',
-    },
-    {
-      path: './fonts/ZalandoSansSemiExpanded-Light.ttf',
-      // weight: '300',
-      style: 'normal',
-    },
-    {
-      path: './fonts/ZalandoSansSemiExpanded-Regular.ttf',
-      // weight: '400',
-      style: 'normal',
-    },
-    {
-      path: './fonts/ZalandoSansSemiExpanded-Medium.ttf',
-      // weight: '500',
-      style: 'normal',
-    },
-    {
-      path: './fonts/ZalandoSansSemiExpanded-SemiBold.ttf',
-      // weight: '600',
-      style: 'normal',
-    },
-    {
-      path: './fonts/ZalandoSansSemiExpanded-Bold.ttf',
-      // weight: '700',
-      style: 'normal',
-    },
-    {
-      path: './fonts/ZalandoSansSemiExpanded-ExtraBold.ttf',
-      // weight: '800',
-      style: 'normal',
-    },
-    {
-      path: './fonts/ZalandoSansSemiExpanded-Black.ttf',
-      // weight: '900',
-      style: 'normal',
-    },
+    { path: './fonts/ZalandoSansSemiExpanded-ExtraLight.ttf', style: 'normal' },
+    { path: './fonts/ZalandoSansSemiExpanded-Light.ttf', style: 'normal' },
+    { path: './fonts/ZalandoSansSemiExpanded-Regular.ttf', style: 'normal' },
+    { path: './fonts/ZalandoSansSemiExpanded-Medium.ttf', style: 'normal' },
+    { path: './fonts/ZalandoSansSemiExpanded-SemiBold.ttf', style: 'normal' },
+    { path: './fonts/ZalandoSansSemiExpanded-Bold.ttf', style: 'normal' },
+    { path: './fonts/ZalandoSansSemiExpanded-ExtraBold.ttf', style: 'normal' },
+    { path: './fonts/ZalandoSansSemiExpanded-Black.ttf', style: 'normal' },
   ],
   variable: '--font-zalando',
 });
 
-
+// 1. Unified Canonical Base
 export const metadata: Metadata = {
-  // 1. Base URL for resolving all relative image links (Fixes the "localhost" warning)
-  metadataBase: new URL('https://platinumirish.in'), 
-
-    alternates: {
+  metadataBase: new URL('https://platinumirish.in'),
+  alternates: {
     canonical: '/',
   },
-  // 2. Precise Title for High-Intent Search
-  title: "Irish Platinum | Save ₹25.5 Lacs* | Luxury 3/4 BHK in Sector 10, Greater Noida West",
   
-  // 3. AI-Snippet Optimized Description
-  description: "Save up to ₹25.5 Lacs*. Official project details for Irish Platinum, Sector 10. Download Official brochure , Floor Plans and Payment Plans , Direct Booking. Low-density 3 BHK & 4 BHK apartments in Greater Noida West. Mivan construction, 5 mins from Metro, & RERA approved (UPRERAPRJ503189). Starting ₹1.63 Cr*.",
+  title: "Irish Platinum Sector 10 | 3 & 4 BHK in Greater Noida West",
   
-  // 4. Cleaned & De-duplicated Keywords
-  keywords: [
-    "Irish Platinum Sector 10",
-    "Irish Platinum Noida Extension",
-    "Irish Platinum price list download",
-    "Irish Platinum layout",
-    "3 BHK in Noida Extension",
-    "4 BHK Luxury Apartments Greater Noida West",
-    "Property in Greater Noida West",
-    "Flats near Jewar Airport",
-    "Ace Hanei",
-    "Mivan Construction Projects Noida",
-    "Irish Group new project",
-    "RERA UPRERAPRJ503189",
-    "Luxury flats in Noida",
-    "Property near metro station noida extension",
-    "best property in noida extension",
-    "property for investment in noida extension",
-    "irish project",
-    "irish group project",
-    "irish group new project",
-    "platinum irish",
-    "irish platinum society",
-    "irish official website",
-    "irish platinum official website",
-    "irish platinum official"
-  ],
+  // Cleaned up the description to be more human/AI readable as advised
+  description: "Explore Irish Platinum in Sector 10, Greater Noida West — 3 & 4 BHK apartments with Mivan construction. View prices, floor plans, RERA details, and location.",
+  
+  // Removed the 'keywords' array completely. It is dead weight for modern Google/AI.
 
-  // 5. Open Graph (WhatsApp/Telegram/LinkedIn)
   openGraph: {
-    title: "Irish Platinum | Save ₹25.5 Lacs*",
-    description: "Premium 3/4 BHK residences in Sector 10. Mivan Tech & Low Density. Download Price List.",
-    url: "https://platinumirish.in", 
+    title: "Irish Platinum Sector 10 | 3 & 4 BHK Luxury Flats",
+    description: "Explore Irish Platinum in Sector 10, Greater Noida West — 3 & 4 BHK apartments with Mivan construction. View prices, floor plans, and RERA details.",
+    url: "https://platinumirish.in",
     siteName: "Irish Platinum",
     images: [
       {
-        url: "/og-image.png", // Make sure this is a 1200x630px building render in your public folder
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Irish Platinum Luxury Apartments Sector 10",
+        alt: "Irish Platinum 3 and 4 BHK apartments in Sector 10 Greater Noida West",
       },
     ],
     locale: "en_IN",
     type: "website",
   },
 
-  // 6. Twitter Card (X) - Consolidated and Fixed
   twitter: {
     card: "summary_large_image",
-    title: "Irish Platinum | Save ₹25.5 Lacs*",
-    description: "Low density, Mivan construction, 5 mins from Metro. Download Brochure now.",
-    creator: "@heyisomer", // Credits you
-    images: ["/og-image.png"], // Shows the building (High CTR), not a profile pic
+    title: "Irish Platinum Sector 10 | 3 & 4 BHK in Greater Noida West",
+    description: "Explore Irish Platinum in Sector 10. 3 & 4 BHK apartments with Mivan construction.",
+    creator: "@heyisomer",
+    images: ["/og-image.png"],
   },
 
-  // 7. Bot Indexing Rules - Consolidated
   robots: {
     index: true,
     follow: true,
@@ -138,57 +74,119 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+  // 2. The Expert Entity Graph Schema (WebSite -> WebPage -> Property -> Organization)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://platinumirish.in/#website",
+        "url": "https://platinumirish.in/",
+        "name": "Irish Platinum",
+        "inLanguage": "en-IN"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://platinumirish.in/#webpage",
+        "url": "https://platinumirish.in/",
+        "name": "Irish Platinum Sector 10 | 3 & 4 BHK in Greater Noida West",
+        "isPartOf": {
+          "@id": "https://platinumirish.in/#website"
+        },
+        "about": {
+          "@id": "https://platinumirish.in/#property"
+        },
+        "dateModified": "2026-09-15", // AI will now see your festive data is freshly updated today
+        "inLanguage": "en-IN"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://platinumirish.in/#organization",
+        "name": "Irish Infrastructure Private Limited"
+      },
+      {
+        "@type": "ApartmentComplex",
+        "@id": "https://platinumirish.in/#property",
+        "name": "Irish Platinum",
+        "url": "https://platinumirish.in/",
+        "description": "Irish Platinum is a residential apartment project offering 3 and 4 BHK apartments in Sector 10, Greater Noida West.",
+        "image": [
+          "https://platinumirish.in/og-image.png"
+        ],
+        "numberOfAccommodationUnits": {
+          "@type": "QuantitativeValue",
+          "value": 566 // Accurately stated as units, not "offers"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "GH-04A, Sector 10",
+          "addressLocality": "Greater Noida West",
+          "addressRegion": "Uttar Pradesh",
+          "postalCode": "201306",
+          "addressCountry": "IN"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 28.572833,
+          "longitude": 77.45
+        },
+        "brand": {
+          "@id": "https://platinumirish.in/#organization"
+        },
+        "identifier": {
+          "@type": "PropertyValue",
+          "name": "RERA Registration Number",
+          "value": "UPRERAPRJ503189"
+        },
+        // Only actual amenities go here now
+        "amenityFeature": [
+          {
+            "@type": "LocationFeatureSpecification",
+            "name": "5 Minutes from upcoming Metro",
+            "value": true
+          }
+        ],
+        // Construction details and density go in additionalProperty
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "Project Density",
+            "value": "121 units per acre"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "Construction Technology",
+            "value": "Mivan construction"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "Expected Possession",
+            "value": "January 2029"
+          }
+        ]
+      }
+    ]
+  };
+
   return (
     <html lang="en" className="scroll-smooth">
       <head>
         <style>{`
-  body { 
-    font-family: var(--font-zalando) !important;
-    zoom : 0.9
-  }
-`}</style>
+          body { 
+            font-family: var(--font-zalando), sans-serif !important;
+          }
+        `}</style>
       </head>
       <body className={`${zalandoSans.variable} antialiased`}>
         <PromoBar/>
-        {/* ENHANCED JSON-LD SCHEMA FOR AI SEARCH */}
+        
+        {/* SAFE INJECTION: Replaces < with unicode to prevent XSS */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "RealEstateListing",
-              "name": "Irish Platinum",
-              "description": "Luxury 3 & 4 BHK apartments with Mivan construction in Sector 10.",
-              "image": "https://www.platinumirish.in/image.png", // Verify this URL is valid
-              "brand": {
-                "@type": "Organization",
-                "name": "Irish Group"
-              },
-              "offers": {
-                "@type": "Offer",
-                "priceCurrency": "INR",
-                "price": "16300000", 
-                "priceValidUntil": "2025-12-31",
-                "availability": "https://schema.org/PreOrder",
-                "url": "https://www.platinumirish.in"
-              },
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Sector 10",
-                "addressLocality": "Greater Noida West / Noida Extension",
-                "addressRegion": "Uttar Pradesh",
-                "postalCode": "201306",
-                "addressCountry": "IN"
-              },
-              "amenityFeature": [
-                { "@type": "LocationFeatureSpecification", "name": "Mivan Construction", "value": true },
-                { "@type": "LocationFeatureSpecification", "name": "5 Mins from Metro", "value": true },
-                { "@type": "LocationFeatureSpecification", "name": "Low Density", "value": true },
-                { "@type": "LocationFeatureSpecification", "name": "RERA Approved", "value": true }
-              ]
-            })
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
         />
+        
         {children}
       </body>
     </html>

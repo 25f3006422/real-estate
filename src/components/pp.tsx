@@ -42,26 +42,28 @@ export default function PaymentSection() {
   const [isModalOpen, setModalOpen] = useState(false);
 
   return (
-    <section id="paymentplan" className="bg-black md:py-5 px-4 font-primary overflow-hidden relative">
+    // AI SEO FIX: Added aria-labelledby to associate the section with its H2
+    <section id="paymentplan" aria-labelledby="payment-heading" className="bg-black md:py-5 px-4 font-primary overflow-hidden relative">
       <div className="max-w-[1200px] mx-auto flex flex-col items-center">
         
         {/* Header & Tabs */}
         <div className="flex flex-col items-center text-center mb-16 w-full">
-          {/* Increased Eyebrow */}
-          <h3 className="text-yellow-500 text-xs md:text-sm tracking-[0.3em] uppercase font-bold mb-6">
+          {/* AI SEO FIX: Changed from <h3> to <p> to fix document outline */}
+          <p className="text-yellow-500 text-xs md:text-sm tracking-[0.3em] uppercase font-bold mb-6">
             Investment Transparency
-          </h3>
-          {/* MASSIVE TITLE */}
-          <h4 className="text-4xl md:text-4xl font-black text-white uppercase tracking-tighter leading-none mb-12">
+          </p>
+          {/* AI SEO FIX: Upgraded to <h2> for semantic hierarchy */}
+          <h2 id="payment-heading" className="text-4xl md:text-4xl font-black text-white uppercase tracking-tighter leading-none mb-12">
             Payment <span className="text-gray-600 font-extralight italic">Plans</span>
-          </h4>
+          </h2>
           
-          <div className="flex bg-neutral-900/50 p-1.5 rounded-full border border-white/5 backdrop-blur-xl w-full max-w-fit overflow-x-auto scrollbar">
+          <div className="flex bg-neutral-900/50 p-1.5 rounded-full border border-white/5 backdrop-blur-xl w-full max-w-fit overflow-x-auto scrollbar" role="tablist">
             {Object.keys(plans).map((tab) => (
               <button
                 key={tab}
+                role="tab"
+                aria-selected={activeTab === tab}
                 onClick={() => setActiveTab(tab)}
-                /* Increased Tab Text */
                 className={`px-6 md:px-8 py-3 rounded-full text-sm md:text-xs tracking-[0.1em] md:tracking-[0.2em] uppercase transition-all duration-500 whitespace-nowrap font-bold ${
                   activeTab === tab ? 'bg-yellow-500 text-black shadow-[0_0_20px_rgba(234,179,8,0.3)]' : 'text-gray-500 hover:text-white'
                 }`}
@@ -70,6 +72,33 @@ export default function PaymentSection() {
               </button>
             ))}
           </div>
+        </div>
+
+        {/* AI SEO FIX: The "Ghost" Tables for AI Crawlers.
+            This ensures ALL payment plans (CLP, 50:25:25, etc.) are indexed by Google simultaneously. */}
+        <div className="sr-only">
+          <h3>Irish Platinum Comprehensive Payment Schedules</h3>
+          {Object.entries(plans).map(([planName, schedule]) => (
+            <table key={`sr-${planName}`}>
+              <caption>{planName} Payment Plan Schedule</caption>
+              <thead>
+                <tr>
+                  <th>Milestone</th>
+                  <th>Percentage</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {schedule.map((item, index) => (
+                  <tr key={`sr-${planName}-${index}`}>
+                    <td>{item.stage}</td>
+                    <td>{item.value}</td>
+                    <td>{item.desc}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ))}
         </div>
 
         <div className="grid lg:grid-cols-3 gap-10 w-full items-start">
@@ -86,36 +115,26 @@ export default function PaymentSection() {
               >
                 {plans[activeTab as keyof typeof plans].map((item, i) => (
                 <div key={i} className="flex items-center justify-between w-full p-5 md:p-6 bg-neutral-900/20 border border-white/5 rounded-2xl group hover:border-yellow-500/20 transition-all">
-  
-  {/* LEFT GROUP: Icon + Text */}
-  <div className="flex items-center gap-5 flex-1">
-    
-    {/* Icon: Added 'shrink-0' so it never squishes */}
-    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-yellow-500 group-hover:bg-yellow-500 group-hover:text-black transition-all shrink-0">
-      <Check className="w-4 h-4" />
-    </div>
+                  
+                  <div className="flex items-center gap-5 flex-1">
+                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-yellow-500 group-hover:bg-yellow-500 group-hover:text-black transition-all shrink-0">
+                      <Check className="w-4 h-4" />
+                    </div>
+                    <div className="flex-1 min-w-0 text-left">
+                      {/* AI SEO FIX: Added basic semantic tags (strong) for structured reading */}
+                      <p className="text-white text-sm md:text-base uppercase tracking-widest font-bold mb-1 whitespace-normal leading-snug">
+                        <strong>{item.stage}</strong>
+                      </p>
+                      <p className="text-gray-500 text-[10px] md:text-xs uppercase tracking-wider font-medium whitespace-normal leading-snug">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
 
-    {/* Text Content */}
-    <div className="flex-1 min-w-0 text-left">
-      
-      {/* Stage Name: Removed 'truncate', added 'whitespace-normal' */}
-      <p className="text-white text-sm md:text-base uppercase tracking-widest font-bold mb-1 whitespace-normal leading-snug">
-        {item.stage}
-      </p>
-      
-      {/* Description: Also allows wrapping now */}
-      <p className="text-gray-500 text-[10px] md:text-xs uppercase tracking-wider font-medium whitespace-normal leading-snug">
-        {item.desc}
-      </p>
-    </div>
-  </div>
-
-  {/* RIGHT SIDE: Percentage */}
-  <span className="text-xl md:text-3xl font-black text-white tracking-tighter shrink-0 ml-6 group-hover:text-yellow-500 transition-colors">
-    {item.value}
-  </span>
-
-</div>
+                  <span className="text-xl md:text-3xl font-black text-white tracking-tighter shrink-0 ml-6 group-hover:text-yellow-500 transition-colors">
+                    {item.value}
+                  </span>
+                </div>
                 ))}
               </motion.div>
             </AnimatePresence>
@@ -124,15 +143,14 @@ export default function PaymentSection() {
             <div className="mt-8 p-5 bg-yellow-500/5 border border-yellow-500/10 rounded-2xl flex items-center gap-4 w-full max-w-[95vw] md:max-w-none">
                <ShieldCheck className="text-yellow-500 w-6 h-6 shrink-0" />
                <p className="text-[10px] md:text-xs text-gray-400 uppercase tracking-widest leading-tight">
-                 RERA Registration: <span className="text-white font-bold uppercase">UPRERAPRJ503189/03/2024</span>
+                 RERA Registration: <strong className="text-white font-bold uppercase">UPRERAPRJ503189/03/2024</strong>
                </p>
             </div>
           </div>
 
-          {/* NEW: Updated Other Charges & Banking Column */}
+          {/* Other Charges & Banking Column */}
           <div className="flex flex-col items-center w-full gap-8">
             <div className="bg-neutral-900/40 border border-white/5 p-8 md:p-10 rounded-[40px] w-full max-w-[95vw] md:max-w-none text-center lg:text-left relative overflow-hidden group">
-              {/* Subtle Background Glow */}
               <div className="absolute -top-10 -right-10 w-40 h-40 bg-yellow-500/10 blur-3xl rounded-full" />
               
               <div className="relative z-10">
@@ -142,11 +160,12 @@ export default function PaymentSection() {
                 </div>
                 
                 <p className="text-gray-400 text-xs md:text-sm uppercase tracking-widest leading-loose mb-10 font-light">
-                  Other charges for <span className="text-white font-bold">Amenities (Power Backup, Club Membership etc.)</span>, Floor PLC, and View preferences apply based on your selected unit.
+                  Other charges for <strong className="text-white font-bold">Amenities (Power Backup, Club Membership etc.)</strong>, Floor PLC, and View preferences apply based on your selected unit.
                 </p>
 
                 <button 
                   onClick={() => setModalOpen(true)}
+                  aria-label="Request Full Price List"
                   className="w-full py-5 bg-yellow-500 text-black font-black text-xs uppercase tracking-[0.25em] rounded-xl flex items-center justify-center gap-3 hover:bg-yellow-400 transition-all shadow-[0_0_30px_rgba(234,179,8,0.2)] hover:shadow-[0_0_40px_rgba(234,179,8,0.4)] group/btn"
                 >
                   Request Full Price List 
@@ -161,7 +180,7 @@ export default function PaymentSection() {
 
             {/* Escrow Details */}
             <div className="p-8 bg-neutral-900/20 border border-white/5 rounded-[30px] w-full max-w-[95vw] md:max-w-none text-center lg:text-left">
-              <p className="text-gray-500 text-[10px] uppercase tracking-widest mb-2">Developer Entity</p>
+              <p className="text-gray-500 text-[10px] uppercase tracking-widest mb-2">Developer Entity / Escrow</p>
               <p className="text-white text-xs md:text-sm font-bold uppercase tracking-wider">M/S Irish Buildcon Pvt Ltd</p>
             </div>
           </div>
@@ -172,12 +191,14 @@ export default function PaymentSection() {
       <AnimatePresence>
         {isModalOpen && (
           <motion.div 
+            key="leadform-modal-payment"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95 backdrop-blur-3xl"
           >
             <motion.div initial={{ scale: 0.95 }} animate={{ scale: 1 }} className="relative w-full max-w-md">
               <button 
                 onClick={() => setModalOpen(false)} 
+                aria-label="Close form"
                 className="absolute -top-12 right-0 text-white/40 text-xs uppercase tracking-widest hover:text-white transition-colors"
               >
                 Close ×

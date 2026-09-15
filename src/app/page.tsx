@@ -9,22 +9,21 @@ import FloorPlanSection from "../components/Layout";
 import PaymentSection from "../components/pp";
 import FinalInfoSection from "../components/faqs";
 import Footer from "../components/footer";
-import PromoBar from "../components/promobar";
+// import PromoBar from "../components/promobar";
+
 export default function Home() {
   return(
-    <div>
+    // AI SEO: Changed <div> to <main> so crawlers know this is the primary entity content
+    <main>
       <Navbar/>
-      {/* <PromoBar/> */}
       <Hero/>
-      {/* <LeadForm/> */}
       <BrandMarquee/>
-      {/* <h1>Irish</h1> */}
       <FeatureNarrative/>
       <AmenitiesMarquee/>
       <FloorPlanSection/>
       <PaymentSection/>
       <FinalInfoSection/>
       <Footer/>
-    </div>
+    </main>
   )
 }

@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Close menu when a link is clicked
   const handleLinkClick = () => setIsOpen(false);
 
   return (
@@ -15,12 +14,12 @@ export default function Navbar() {
       <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
         <nav className="w-full max-w-6xl backdrop-blur-xl bg-black/60 border border-yellow-500/30 rounded-full px-6 py-3 flex items-center justify-between shadow-[0_0_20px_rgba(234,179,8,0.15)] transition-all duration-500 relative z-50">
           
-          {/* LEFT: Logo & Brand */}
           <div className="flex items-center gap-3">
             <div className="relative w-8 h-8">
               <Image 
                 src="/irish.png" 
-                alt="Irish Logo" 
+                // AI SEO FIX: Explicitly name the Corporate Entity in the alt text
+                alt="Irish Infrastructure Private Limited Logo" 
                 fill 
                 className="object-contain"
                 priority
@@ -31,7 +30,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* CENTER: Desktop Navigation Links */}
           <div className="hidden md:flex gap-8 text-[10px] uppercase tracking-[0.3em] text-gray-300 font-light font-primary">
             {['amenities', 'layout', 'paymentplan'].map((item) => (
               <a 
@@ -44,16 +42,16 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* RIGHT: Actions */}
           <div className="flex items-center gap-3">
             <a 
-              href="tel:+918920840946" 
+              href="tel:+918920840946"
+              // AI SEO FIX: Added aria-label for accessibility/crawlers
+              aria-label="Call Irish Platinum Sales"
               className="flex items-center gap-2 px-6 py-2.5 bg-yellow-500 text-black font-black font-primary uppercase text-[10px] tracking-[0.2em] rounded-full hover:bg-yellow-400 hover:shadow-[0_0_25px_rgba(234,179,8,0.4)] transition-all active:scale-95 shadow-lg"
             >
               <Phone size={12} fill="currentColor" /> <span className="hidden sm:inline">Call Now</span><span className="sm:hidden">Call</span>
             </a>
             
-            {/* Mobile Menu Toggle */}
             <button 
               onClick={() => setIsOpen(!isOpen)}
               className="md:hidden p-2 text-white hover:text-yellow-500 transition-colors z-50"
@@ -64,11 +62,11 @@ export default function Navbar() {
           </div>
         </nav>
 
-        {/* MOBILE MENU DROPDOWN */}
         <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+  {isOpen && (
+    <motion.div
+      key="mobile-menu" 
+      initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.2 }}
@@ -85,10 +83,7 @@ export default function Navbar() {
                     {item}
                   </a>
                 ))}
-                
-                {/* Decorative Divider */}
                 <div className="w-12 h-[1px] bg-white/10 my-2" />
-                
                 <p className="text-[9px] text-gray-500 uppercase tracking-widest">
                   Sector 10 • Greater Noida West
                 </p>
@@ -98,7 +93,6 @@ export default function Navbar() {
         </AnimatePresence>
       </div>
       
-      {/* Backdrop to close menu when clicking outside */}
       {isOpen && (
         <div 
           className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:hidden"
